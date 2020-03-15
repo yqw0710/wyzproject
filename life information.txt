@@ -1,0 +1,22 @@
+if __name__ == 'main': 
+     下的代码只有在文件作为脚本直接执行时才会被执行，而 import 到其他脚本中是不会被执行的。
+
+def randomGrid(N):
+     return np.random.choice(vals, N*N, p=[0.2, 0.8]).reshape(N, N)
+     从vals（255,0）中以概率P，随机选择N*N个
+
+     np.random.choice(5, 3, p=[0.1, 0, 0.3, 0.6, 0]) 
+     表示分别以p=[0.1, 0, 0.3, 0.6, 0]的概率从[0,1,2,3,4]这四个数中选取3个数
+   
+     .reshape(m,n)实质上是将元素重组为新的shape。
+
+
+def addGlider(i, j, grid):
+     不懂
+
+
+def update(frameNum, img, grid, N):
+      grid.copy()复制表格
+      this.setData()方法-更新数据让框架自动更新对应视图区域
+
+def main():

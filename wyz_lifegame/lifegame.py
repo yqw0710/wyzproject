@@ -16,13 +16,6 @@ def randomGrid(N,M):
     """returns a grid of NxN random values"""
     return np.random.choice(vals, N * M, p=[0.2, 0.8]).reshape(N, M) # 采用随机的初始状态
 
-def addGlider(i, j, grid):
-    """adds a glider with top-left cell at (i, j)"""
-    glider = np.array([[0, 0, 255],
-                       [255, 0, 255],
-                       [0, 255, 255]])  # 3×3 的 numpy 数组定义了滑翔机图案（看上去是一种在网格中平稳穿越的图案）。
-    grid[i:i + 3, j:j + 3] = glider  # 可以看到如何用 numpy 的切片操作，将这种图案数组复制到模拟的二维网格中，它的左上角放在 i和 j指定的坐标，即用这个方法在网格的特定行和列增加一个图案，
-
 # 实现环形边界条件
 def update(frameNum, img, grid, N ,M):
     newGrid = grid.copy()
@@ -65,17 +58,12 @@ def main():
         print('The input is not a number!')
         sys.exit(0)
 
+    grid = randomGrid(N)
     # 设置动画模块
     fig, ax = plt.subplots(facecolor='blue')  # 配置 matplotlib 的绘图和动画参数
     img = ax.imshow(grid, cmap=cmap,
-                    interpolation='nearest')  # 用plt.show()方法将这个矩阵的值显示为图像，并给 interpolation 选项传入'nearest'值，以得到尖锐的边缘（否则是模糊的）
+                    interpolation='nearest')
     ani = animation.FuncAnimation(fig, update,  fargs=(img, grid, N,),frames=10,interval=50,save_count=50)
-                                  # animation.FuncAnimation()调用函数 update()，该函数在前面的程序中定义，根据 Conway 生命游戏的规则，采用环形边界条件来更新网格。
-
-    # number of frames?
-    # set the output file
-    if args.movfile:
-        ani.save(args.movfile, fps=30, extra_args=['-vcodec', 'libx264'])
     plt.show()
 
 if __name__ == '__main__':

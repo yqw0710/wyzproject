@@ -62,21 +62,12 @@ def main():
     if args.N and int(args.N) > 8:
         N = int(args.N)
 
-    # set animation update interval
-    updateInterval = 50
-    if args.interval:
-        updateInterval = int(args.interval)
-
-    # check if "glider" demo flag is specified，设置初始条件，要么是默认的随机图案，要么是滑翔机图案。
-    if args.glider:
-        grid = np.zeros(N * N).reshape(N, N)  # 创建 N×N 的零值数组，
-        addGlider(1, 1, grid)  # 调用 addGlider()方法，初始化带有滑翔机图案的网格
     else:
         # populate grid with random on/off - more off than on
         grid = randomGrid(N)
 
-    # 设置动画
-    fig, ax = plt.subplots(facecolor='pink')  # 配置 matplotlib 的绘图和动画参数
+    # 设置动画模块
+    fig, ax = plt.subplots(facecolor='blue')  # 配置 matplotlib 的绘图和动画参数
     img = ax.imshow(grid, cmap=cmap,
                     interpolation='nearest')  # 用plt.show()方法将这个矩阵的值显示为图像，并给 interpolation 选项传入'nearest'值，以得到尖锐的边缘（否则是模糊的）
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,),

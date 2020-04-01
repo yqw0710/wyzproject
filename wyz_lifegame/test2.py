@@ -1,7 +1,8 @@
+# coding=utf-8
 import sys, argparse  # argparse是python的一个命令行解析包
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+import numpy as np # 数组
+import matplotlib.pyplot as plt # 生成动画
+import matplotlib.animation as animation # 更新模拟
 from matplotlib.colors import ListedColormap
 
 yeah = ('LightPink', 'black')
@@ -11,7 +12,7 @@ ON = 1
 OFF = 0
 vals = [ON, OFF]
 
-def randomGrid(N,M):
+def randomGrid(N,M):# returns a grid of NxM random values
     return np.random.choice(vals, N * M, p=[0.2, 0.8]).reshape(N, M)  # 采用随机的初始状态
 
 # 实现环形边界条件
@@ -34,7 +35,7 @@ def update(frameNum, img, grid, N ,M):
     grid[:] = newGrid[:]
     return img
 
-# 向程序发送命令行参数，mian()
+# 向程序发送命令行参数
 def main():
     # set grid size
     print("请输入一个地图的长与宽：")

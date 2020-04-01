@@ -61,7 +61,6 @@ def main():
     N=input()
     if args.N and int(args.N) > 8:
         N = int(args.N)
-
     else:
         # populate grid with random on/off - more off than on
         grid = randomGrid(N)
@@ -73,7 +72,7 @@ def main():
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,),
                                   # animation.FuncAnimation()调用函数 update()，该函数在前面的程序中定义，根据 Conway 生命游戏的规则，采用环形边界条件来更新网格。
                                   frames=10,
-                                  interval=updateInterval,
+                                  interval=50,
                                   save_count=50)
     # number of frames?
     # set the output file

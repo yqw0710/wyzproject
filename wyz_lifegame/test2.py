@@ -36,10 +36,6 @@ def update(frameNum, img, grid, N ,M):
 
 # 向程序发送命令行参数，mian()
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--interval', dest='interval', required=False)  # 设置动画更新间隔的毫秒数
-    args = parser.parse_args()
-
     # set grid size
     print("请输入一个地图的长与宽：")
     M = input()
@@ -53,6 +49,9 @@ def main():
         print('The input is not a number!')
         sys.exit(0)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--interval', dest='interval', required=False)  # 设置动画更新间隔的毫秒数
+    args = parser.parse_args()
     # declare grid
     grid = randomGrid(N,M)
 
@@ -61,7 +60,7 @@ def main():
     img = ax.imshow(grid, cmap=cmap,
                     interpolation='nearest')  # 用plt.show()方法将这个矩阵的值显示为图像，并给 interpolation 选项传入'nearest'值，以得到尖锐的边缘（否则是模糊的）
 
-    ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,M),frames=10,interval=50,save_count=50)
+    ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,M),frames=10,interval=500,save_count=50)
                                   # animation.FuncAnimation()调用函数 update()，该函数在前面的程序中定义，根据 Conway 生命游戏的规则，采用环形边界条件来更新网格。
     plt.show()
 

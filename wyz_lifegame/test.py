@@ -37,13 +37,9 @@ def update(frameNum, img, grid, N):
     return img
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--interval', dest='interval', required=False) # 设置动画更新间隔的毫秒数
-    args = parser.parse_args()
-
     # set grid size
     print("请输入一个地图的大小值：")
-    N=input()
+    N = input()
     try:
         if N and int(N) > 8:
             N = int(N)
@@ -54,6 +50,9 @@ def main():
     # declare grid
     grid = randomGrid(N)
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--interval', dest='interval', required=False) # 设置动画更新间隔的毫秒数
+    args = parser.parse_args()
     # 设置动画
     fig, ax = plt.subplots(facecolor='Lavender')  # 配置 matplotlib 的绘图和动画参数
     img = ax.imshow(grid, cmap=cmap,interpolation='nearest')  # 用plt.show()方法将这个矩阵的值显示为图像，并给 interpolation 选项传入'nearest'值，以得到尖锐的边缘（否则是模糊的）

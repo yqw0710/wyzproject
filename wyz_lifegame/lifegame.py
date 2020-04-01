@@ -49,15 +49,8 @@ def update(frameNum, img, grid, N):
 
 # 向程序发送命令行参数，mian()
 def main():
-    # command line arguments are in sys.argv[1], sys.argv[2], ...
-    # sys.argv[0] is the script name and can be ignored
-    # parse arguments
     parser = argparse.ArgumentParser(description="Runs Conway's Game of Life simulation.")
-    # add arguments
-    parser.add_argument('--grid-size', dest='N', required=False)  # 定义了可选参数，指定模拟网格大小N
-    parser.add_argument('--mov-file', dest='movfile', required=False)  # 指定保存.mov 文件的名称
     parser.add_argument('--interval', dest='interval', required=False)  # 设置动画更新间隔的毫秒数
-    parser.add_argument('--glider', action='store_true', required=False)  # 用滑翔机图案开始模拟
     parser.add_argument('--gosper', action='store_true', required=False)
     args = parser.parse_args()
 

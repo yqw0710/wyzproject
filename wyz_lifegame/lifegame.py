@@ -69,11 +69,9 @@ def main():
     fig, ax = plt.subplots(facecolor='blue')  # 配置 matplotlib 的绘图和动画参数
     img = ax.imshow(grid, cmap=cmap,
                     interpolation='nearest')  # 用plt.show()方法将这个矩阵的值显示为图像，并给 interpolation 选项传入'nearest'值，以得到尖锐的边缘（否则是模糊的）
-    ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N,),
+    ani = animation.FuncAnimation(fig, update,  fargs=(img, grid, N,),frames=10,interval=50,save_count=50)
                                   # animation.FuncAnimation()调用函数 update()，该函数在前面的程序中定义，根据 Conway 生命游戏的规则，采用环形边界条件来更新网格。
-                                  frames=10,
-                                  interval=50,
-                                  save_count=50)
+
     # number of frames?
     # set the output file
     if args.movfile:

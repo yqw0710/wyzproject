@@ -12,9 +12,9 @@ ON = 255
 OFF = 0
 vals = [ON, OFF]
 
-def randomGrid(N):
+def randomGrid(N,M):
     """returns a grid of NxN random values"""
-    return np.random.choice(vals, N * N, p=[0.2, 0.8]).reshape(N, N) # 采用随机的初始状态
+    return np.random.choice(vals, N * M, p=[0.2, 0.8]).reshape(N, M) # 采用随机的初始状态
 
 def addGlider(i, j, grid):
     """adds a glider with top-left cell at (i, j)"""
@@ -24,17 +24,14 @@ def addGlider(i, j, grid):
     grid[i:i + 3, j:j + 3] = glider  # 可以看到如何用 numpy 的切片操作，将这种图案数组复制到模拟的二维网格中，它的左上角放在 i和 j指定的坐标，即用这个方法在网格的特定行和列增加一个图案，
 
 # 实现环形边界条件
-def update(frameNum, img, grid, N):
+def update(frameNum, img, grid, N ,M):
     newGrid = grid.copy()
     for i in range(N):
-        for j in range(N):
-            total = int((grid[i, (j - 1) % N] + grid[i, (j + 1) % N] +
+        for j in range(M):  # 检测网格的8个边缘。用取模运算符让值在边缘折返
+            total = int((grid[i, (j - 1) % M] + grid[i, (j + 1) % M] +
                          grid[(i - 1) % N, j] + grid[(i + 1) % N, j] +
-                         grid[(i - 1) % N, (j - 1) % N] + grid[(i - 1) % N, (j + 1) % N] +
-                         grid[(i + 1) % N, (j - 1) % N] + grid[
-                             (i + 1) % N, (j + 1) % N]) / 255)  # 因为需要检测网格的 8个边缘。更简洁的方式是用取模（%）运算符，可以用这个运算符让值在边缘折返
-
-            # Conway实现规则 :生命游戏的规则基于相邻细胞的 ON 或 OFF 数目。为了简化这些规则的应用，可以计算出处于 ON 状态的相邻细胞总数。
+                         grid[(i - 1) % N, (j - 1) % M] + grid[(i - 1) % N, (j + 1) % M] +
+                         grid[(i + 1) % N, (j - 1) % M] + grid[(i + 1) % N, (j + 1) % M]))
             if grid[i, j] == ON:
                 if (total < 2) or (total > 3):
                     newGrid[i, j] = OFF
@@ -56,14 +53,17 @@ def main():
 
     # 初始化模拟
     # set grid size
-    # N = 100
-    print("请输入一个地图的大小值：")
-    N=input()
-    if args.N and int(args.N) > 8:
-        N = int(args.N)
-    else:
-        # populate grid with random on/off - more off than on
-        grid = randomGrid(N)
+    print("请输入一个地图的长与宽：")
+    M = input()
+    N = input()
+    try:
+        if M and int(M) > 8:
+            M = int(M)
+        if N and int(N) > 8:
+            N = int(N)
+    except ValueError:
+        print('The input is not a number!')
+        sys.exit(0)
 
     # 设置动画模块
     fig, ax = plt.subplots(facecolor='blue')  # 配置 matplotlib 的绘图和动画参数
